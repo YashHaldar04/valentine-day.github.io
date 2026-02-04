@@ -107,7 +107,7 @@ function handleNo(e) {
   }
 
   if (noAttempts === 1) setGif(gifs.sad);
-  if (noAttempts === 7) setGif(gifs.angry);
+  if (noAttempts === 3) setGif(gifs.angry);
 
   noBtn.textContent = sarcasticNos[noAttempts % sarcasticNos.length];
 
