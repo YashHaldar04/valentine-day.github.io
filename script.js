@@ -31,6 +31,10 @@ const gifs = {
 const sadSound = new Audio('audios/sad-cat.mp3');
 const happySound = new Audio('audios/happy-celebration.mp3');
 
+sadSound.loop = true;
+sadSound.volume = 0.8;
+happySound.volume = 1;
+
 
 /* ===== PRELOAD GIFS ===== */
 
@@ -97,12 +101,13 @@ function handleNo(e) {
 
   noAttempts++;
 
-  // play sad sound every time
-  sadSound.currentTime = 0;
-  sadSound.play();
+  // ▶️ play sad sound only once (no restarting)
+  if (sadSound.paused) {
+    sadSound.play();
+  }
 
   if (noAttempts === 1) setGif(gifs.sad);
-  if (noAttempts === 5) setGif(gifs.angry);
+  if (noAttempts === 3) setGif(gifs.angry);
 
   noBtn.textContent = sarcasticNos[noAttempts % sarcasticNos.length];
 
@@ -122,13 +127,17 @@ yesBtn.addEventListener('click', () => {
 
   setGif(gifs.happy);
 
-  // play celebration sound
+  // ⛔ stop sad sound
+  sadSound.pause();
+  sadSound.currentTime = 0;
+
+  // 🎉 play happy sound
   happySound.currentTime = 0;
   happySound.play();
 
   noBtn.style.display = "none";
 
-  yesBtn.textContent = "Yesss! Diya 💖";
+  yesBtn.textContent = "Yayyyayyy!! 💖";
   yesBtn.style.background = "linear-gradient(135deg,#ff6b9d,#c44569)";
 
   for (let i = 0; i < 35; i++) {
